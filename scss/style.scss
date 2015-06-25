@@ -2,6 +2,62 @@
 @import "../bower_components/normalize-css/normalize.css";
 @import "../bower_components/typeplate-starter-kit/css/typeplate.css";
 
+body {
+  font-size: 1rem;
+  line-height: 1.75rem;
+  max-width: 760px;
+  margin: 0 auto;
+}
+h1 {
+  font-size: 8.0625rem;
+  line-height: 8.75rem;
+  margin-top: 3.5rem;
+  margin-bottom: 1.75rem;
+}
+h2 {
+  font-size: 4rem;
+  line-height: 5.25rem;
+  margin-top: 3.5rem;
+  margin-bottom: 1.75rem;
+}
+h3 {
+  font-size: 2rem;
+  line-height: 3.5rem;
+  margin-top: 1.75rem;
+  margin-bottom: 1.75rem;
+}
+h4 {
+  font-size: 1rem;
+  line-height: 1.75rem;
+  margin-top: 1.75rem;
+  margin-bottom: 1.75rem;
+}
+p, ul, ol, pre, table, blockquote {
+  margin-top: 1.75rem;
+  margin-bottom: 1.75rem;
+}
+
+/* Sanitation */
+hr {
+  border: 1px solid;
+  margin: -1px 0;
+}
+ul ul, ol ol, ul ol, ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+b, strong, em, small, code {
+  line-height: 1;
+}
+sup, sub {
+  vertical-align: baseline;
+  position: relative;
+  top: -0.4em;
+}
+sub {
+  top: 0.4em;
+}
+
 /**
  * BOX-SIZING
  */
@@ -87,3 +143,82 @@ img {
 /**
  * YOUR CODE HERE
  */
+
+/** USING BACKGORUND IMAGES WITH BACKGROUND-ATACHMENT (fixed or local)
+ul {
+    list-style-type:none;
+    padding: 0;
+    li {
+        min-height: 100vh;
+        margin-bottom: 1rem;
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center center;
+
+        &:nth-child(3n) {
+            background-image: linear-gradient(90deg, #E55D87 10%, #5FC3E4 90%);
+        }
+    }
+}
+**/
+
+ul.slanted {
+    list-style-type:none;
+    padding: 0;
+    li {
+        min-height: 30vh;
+        margin-bottom: 1rem;
+        position: relative;
+        overflow: hidden;
+        transform: skewY(15deg) translateZ(0);
+
+        img {
+            position: absolute;
+            top: 50%;
+            left:50%;
+            transition: opacity .5s ease;
+        }
+    }
+}
+
+@keyframes animateRight {
+    0%{
+        transform: skewY(15deg) translateX(-100%);
+        opacity: 0;
+    }
+    100%{
+        transform: skewY(15deg);
+        opacity: 1;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

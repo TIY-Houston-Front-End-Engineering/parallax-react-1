@@ -5,22 +5,63 @@ require("es5-shim")
 // es6 polyfills, powered by babel
 require("babel/register")
 
-var Promise = require('es6-promise').Promise
-// just Node?
-// var fetch = require('node-fetch')
-// Browserify?
-// require('whatwg-fetch') //--> not a typo, don't store as a var
+import {Promise} from 'es6-promise'
+import React, {Component} from 'react'
+import _ from 'underscore'
 
-// other stuff that we don't really use in our own code
-// var Pace = require("../bower_components/pace/pace.js")
+class Slanted extends Component {
+    constructor(...p){
+        super(...p)
+        this.state = {
+            images: [],
+            scroll: 0
+        }
+        var image_urls = [
+            'https://c2.staticflickr.com/6/5565/14713561732_e4f4618a33_c.jpg',
+            'https://c1.staticflickr.com/9/8629/16581806059_8ecac5a5e6_c.jpg',
+            'https://c1.staticflickr.com/3/2920/13946389668_47abea6b55_c.jpg'
+        ]
+        var temp = Array(10).join(',-').split('-'),
+            len = image_urls.length
+        this.state.images = temp.map(() => image_urls[Math.floor(Math.random()*len)]+`?_=${+new Date()}`)
+        this._setScroll = _.debounce((e) => {
+            this.setState({
+                scroll: Math.floor(window.scrollY)
+            })
+        },16)
+    }
+    componentDidMount(){
+        window.addEventListener('scroll', this._setScroll)
+    }
+    componentDidUnmount(){
+        window.removeEventListener('scroll', this._setScroll)
+    }
+    render(){
+        return (<ul className="slanted">
+            { this.state.images.map((url) => <SlantedImage src={url} scroll={this.state.scroll} />)}
+        </ul>)
+    }
+}
 
-// require your own libraries, too!
-// var Router = require('./app.js')
+class SlantedImage extends Component {
+    constructor(...p){
+        super(...p)
+        this.state = {
+            opacity: 0
+        }
+    }
+    _fadeIn(){
+        this.setState({opacity: 1})
+    }
+    render(){
+        // console.log(this.props.scroll)
+        var style = {
+            // src: `url(${this.props.src})`,
+            opacity: this.state.opacity,
+            transform: `translate(-50%, -50%) skewY(-15deg)`
+        }
+        return (<li><img src={this.props.src} onLoad={() => this._fadeIn()} style={style}/></li>)
+    }
+}
 
-// window.addEventListener('load', app)
-
-// function app() {
-    // start app
-    // new Router()
-// }
-
+React.render(<Slanted />, document.querySelector('.container'))
